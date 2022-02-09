@@ -1,5 +1,6 @@
 package com.company;
 
+
 public class Main {
 
     public static void main(String[] args) {
@@ -9,5 +10,6 @@ public class Main {
 //        2. Print menu
 //        3. Add new order
 //  after processing 10 clients print full restaurant order book
+
     }
 }
