@@ -1,5 +1,6 @@
 package com.company.service;
 
+import com.company.dao.ClientDao;
 import com.company.dto.Food;
 import com.company.dto.Ingredients;
 import com.company.dto.Order;
