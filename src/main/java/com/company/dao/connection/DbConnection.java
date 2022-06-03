@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 public class DbConnection {
 
-    private final static String URL = "jdbc:mysql://localhost/restaurant?user=root&password=niger182&serverTimezone=UTC";
+    private final static String URL = "jdbc:mysql://localhost/restaurant?user=root&password=niger182&serverTimezone=UTC&useSSL=false";
 
     public static Connection getConnection() {
         try {
