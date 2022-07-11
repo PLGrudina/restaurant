@@ -2,7 +2,9 @@ package com.company.dao;
 
 import com.company.dto.Client;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +15,10 @@ public class ClientDao {
     private final static String TABLE = "clients";
 
     public Client create(String name) {
-        try {
-            getConnection().createStatement().execute("INSERT INTO " + TABLE + " VALUES(0,'" + name +"');");
-            ResultSet rs = getConnection().createStatement().executeQuery("SELECT * FROM " + TABLE + " WHERE name='" + name + "';");
+        try (Connection connection = getConnection();
+             Statement stmnt = connection.createStatement()) {
+            stmnt.execute("INSERT INTO " + TABLE + " VALUES(0,'" + name + "');");
+            ResultSet rs = connection.createStatement().executeQuery("SELECT * FROM " + TABLE + " WHERE name='" + name + "';");
             return rsToClient(rs).get(0);
         } catch (Exception e) {
             System.out.println("client not created");
@@ -24,8 +27,9 @@ public class ClientDao {
     }
 
     public void delete(long id) {
-        try {
-            getConnection().createStatement().execute("DELETE FROM " + TABLE + " WHERE id=" + id + ";");
+        try (Connection connection = getConnection();
+             Statement stmnt = connection.createStatement()) {
+            stmnt.execute("DELETE FROM " + TABLE + " WHERE id=" + id + ";");
         } catch (Exception e) {
             System.out.println("client not deleted id=" + id);
         }
@@ -39,6 +43,7 @@ public class ClientDao {
                 String name = rs.getString("name");
                 clients.add(new Client(id, name));
             }
+            rs.close();
             return clients;
         } catch (Exception e) {
             System.out.println("can`t parse client");
