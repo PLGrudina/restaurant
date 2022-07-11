@@ -1,23 +1,31 @@
 package com.company;
 
+import com.company.dao.FoodDao;
+import com.company.dao.IngredientDao;
+import com.company.dto.Food;
+import com.company.dto.Ingredient;
 
-import com.company.dao.ClientDao;
-import com.company.dto.Client;
+import java.util.Arrays;
 
 public class Main {
 
     public static void main(String[] args) {
-        ClientDao clientDao = new ClientDao();
-        Client cl = clientDao.create("VASYA");
-        System.out.println("client created " + cl);
-        clientDao.delete(cl.getId());
-        System.out.println("and than client deleted " + cl);
-//  before starting restaurant workflow you should create ingredients, food and menu
-//	workflow should be implemented in loop/stream for at least 10 clients
-//        1. Create client
-//        2. Print menu
-//        3. Add new order
-//  after processing 10 clients print full restaurant order book
+//        ClientDao clientDao = new ClientDao();
+//        Client cl = clientDao.create("VASYA");
+//        System.out.println("client created " + cl);
+//        clientDao.delete(cl.getId());
+//        System.out.println("and than client deleted " + cl);
+        IngredientDao ingredientDao = new IngredientDao();
+        Ingredient carrot = ingredientDao.create("carrot");
+        Ingredient onion = ingredientDao.create("onion");
+        Ingredient cucumber = ingredientDao.create("cucumber");
 
+        Food uglyDinner = new Food(1L, "uglyDinner", 300, Arrays.asList(carrot, onion, cucumber));
+        FoodDao foodDao = new FoodDao();
+        foodDao.create(uglyDinner);
+
+//      At this point you should receive Food from database with real id`s
+        Food fromDbFood = foodDao.findByName("uglyDinner");
+        System.out.println(fromDbFood);
     }
 }
